@@ -1,10 +1,15 @@
 const express = require('express')
 const shortid = require('shortid')
-const env = require('.env')
+const dotenv = require('dotenv').config()
+const cors = require('cors')
 const server = express()
 const port = process.env.PORT
 //configure our server(plug functionality)
 server.use(express.json())
+server.use(cors())
+
+
+
 
 let users = [
     {

@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/william-tf/node-api1-project#readme",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "env": "0.0.2",
     "express": "^4.17.1",
     "shortid": "^2.2.16"
