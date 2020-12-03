@@ -1,8 +1,8 @@
 const express = require('express')
 const shortid = require('shortid')
-
+const env = require('.env')
 const server = express()
-
+const port = process.env.PORT
 //configure our server(plug functionality)
 server.use(express.json())
 
@@ -82,6 +82,11 @@ server.get('/api/users/:id', (req, res) => {
 server.delete('/api/users/:id', (req, res) => {
     const { id } = req.params
     const deletedUser = User.delete(id)
+
+    if (deletedUser !== id){
+        res.status(500).json({message:'cant find by dat ID!'})
+    }
+
     if(deletedUser){
         res.status(200)/json(deletedUser)
     }else{
@@ -95,8 +100,9 @@ server.put('/api/users/:id', (req, res) => {
     if(updatedUser){
         res.status(200).json(updatedUser)
     }else{
-        res.status(404).json({message:'user not found with id' + id})
+        res.status(500).json({message:'user not found with id' + id})
     }
+
 })
 
 //catch-all endpoint
@@ -104,6 +110,6 @@ server.use('*', (req, res) => {
     res.status(404).json({message:'error404'})
 })
 
-server.listen(5000, () => {
+server.listen(port, () => {
     console.log('server is listening on port 5000')
 })
